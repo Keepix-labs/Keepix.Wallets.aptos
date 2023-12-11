@@ -1,17 +1,18 @@
-# Keepix.Wallets.EVM
+# Keepix.Wallets.Aptos
 
 Library that respects the WalletLibraryInterface.  
-This library is used to create wallets, hold coin and token balances and carry out transactions.  
-  
+This library is used to create wallets, hold coin and token balances and carry out transactions.
+
 ```js
 class Wallet {
     constructor({}: {
-        password?: string,
-        mnemonic?: string,
-        privateKey?: string,
-        type: string,
-        keepixTokens?: { coins: any, tokens: any } // whitelisted coins & tokens
-        rpc?: any,
+        networkId: NETWORK
+        password?: string
+        mnemonic?: string
+        privateKey?: string
+        type: string
+        keepixTokens?: { coins: any; tokens: any } // whitelisted coins & tokens
+        rpc?: any
         privateKeyTemplate?: string
     }) {}
 
@@ -25,9 +26,9 @@ class Wallet {
     // returns like 1.01 (Always in readable value)
     getTokenBalance: (tokenAddress: string, walletAddress?: string) => Promise<string>;
 
-    // amount is always like 1.20 ETH 
-    estimateCostSendCoinTo: (receiverAddress: string, amount: string) => Promise<{ success: boolean, description: string }>;
-    estimateCostSendTokenTo: (tokenAddress: string, receiverAddress: string, amount: string) => Promise<{ success: boolean, description: string }>;
+    // amount is always like 1.20 ETH
+    estimateCostSendCoinTo: (receiverAddress: string, amount: string) => Promise<{ success: boolean, description: any }>;
+    estimateCostSendTokenTo: (tokenAddress: string, receiverAddress: string, amount: string) => Promise<{ success: boolean, description: any }>;
     sendCoinTo: (receiverAddress: string, amount: string) => Promise<{ success: boolean, description: string }>;
     sendTokenTo: (tokenAddress: string, receiverAddress: string, amount: string) => Promise<{ success: boolean, description: string }>;
 }
