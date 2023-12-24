@@ -186,6 +186,24 @@ export class Wallet {
     return this.wallet
   }
 
+  public async getTokenInformation(tokenAddress: string) {
+    try {
+      const metadata =
+        await this.provider.fungibleAsset.getFungibleAssetMetadataByAssetType({
+          assetType: tokenAddress,
+        })
+
+      return {
+        name: metadata.name,
+        symbol: metadata.symbol,
+        decimals: metadata.decimals,
+      }
+    } catch (err) {
+      console.log(err)
+      return undefined
+    }
+  }
+
   // always display the balance in 0 decimals like 1.01 APT
   public async getCoinBalance(walletAddress?: string) {
     try {
@@ -206,6 +224,7 @@ export class Wallet {
         await this.provider.fungibleAsset.getFungibleAssetMetadataByAssetType({
           assetType: tokenAddress,
         })
+      console.log(metadata)
       const balance = await this.provider.getAccountCoinAmount({
         accountAddress: walletAddress ?? this.wallet.accountAddress.toString(),
         coinType: tokenAddress as any,
