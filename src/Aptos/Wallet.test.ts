@@ -51,6 +51,19 @@ describe('basic wallet', () => {
     expect(wallet.getMnemonic()).toBeDefined()
   })
 
+  it('can getTokenInformation', async () => {
+    const wallet = new Wallet({
+      password: 'toto',
+      type: 'aptos',
+      networkId: 'testnet',
+    })
+    expect(
+      await wallet.getTokenInformation(
+        '0x43417434fd869edee76cca2a4d2301e528a1551b1d719b75c350c3c97d15b8b9::coins::USDT',
+      ),
+    ).toEqual({ name: 'Tether', symbol: 'USDT', decimals: 6 })
+  })
+
   it('can getBalance', async () => {
     const wallet = new Wallet({
       password: 'toto',

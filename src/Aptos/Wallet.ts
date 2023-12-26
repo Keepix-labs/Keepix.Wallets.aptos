@@ -224,7 +224,6 @@ export class Wallet {
         await this.provider.fungibleAsset.getFungibleAssetMetadataByAssetType({
           assetType: tokenAddress,
         })
-      console.log(metadata)
       const balance = await this.provider.getAccountCoinAmount({
         accountAddress: walletAddress ?? this.wallet.accountAddress.toString(),
         coinType: tokenAddress as any,
